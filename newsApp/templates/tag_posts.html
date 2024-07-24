@@ -1,0 +1,15 @@
+<!-- tag_posts.html -->
+{% extends 'layouts/base.html' %}
+{% block content %}
+<div class="container">
+    <h2>Posts related to {{ tag.name }}</h2>
+    <ul>
+        {% for post in posts %}
+            <li><a href="{% url 'view-post' post.pk %}">{{ post.title }}</a></li>
+            <!-- Adjust the URL tag as per your actual view name for viewing a post -->
+        {% empty %}
+            <li>No posts found.</li>
+        {% endfor %}
+    </ul>
+</div>
+{% endblock %}

@@ -1,0 +1,111 @@
+.featured-articles {
+  padding: 11px;
+    width: 585px;
+    height: 590px;
+    object-fit: cover;
+    margin-bottom: 6rem;
+    margin-right: 1.3rem;
+  
+}
+
+.featured-articles:hover{
+  .featuredtext{
+    color:#868484;
+  }
+}
+.featured-more{
+  width: 700%;
+  max-width: 400px;
+  margin: 10px;
+  padding: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  border-radius: 5px;
+  overflow:hidden;
+}
+
+.container {
+  display: flex;
+  flex-wrap: wrap;
+  
+}
+
+.article-card {
+  width: 100%;
+  max-width: 200px;
+  margin: 10px;
+  padding: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  border-radius: 5px;
+  overflow: hidden;
+}
+
+.article-image {
+  height: 394px; /* Ensures the image maintains its aspect ratio */
+  max-height: 200px; /* Adjust this value as needed to fit your design */
+  object-fit: cover; /* Ensures the image covers the entire container */
+}
+
+.article-content {
+  padding: 10px;
+}
+
+.article-content h3 {
+  margin-top: 0;
+}
+
+.article-content p {
+  margin-bottom: 10px;
+}
+
+.article-content a {
+  display: inline-block;
+  text-decoration: none;
+  color: #007bff;
+  font-weight: bold;
+}
+.row1{
+  margin-top: 30px;
+  padding-right: 7px;
+  border-right: 1px solid #e2e2e2;
+}
+.card-img{
+  max-height: 400px;
+    object-fit: cover;
+
+}
+.featuredtext{
+  color: #505050;
+  font-family: GT America;
+  
+  font-style: normal;
+  font-weight: 600;
+  letter-spacing: -.03125rem;
+  line-height: 2.3125rem;
+  margin-bottom: 3px;
+  padding: 0 20px;
+  text-align: center;
+}
+.featuredTitle{
+  margin-left: 50px;
+  margin-right: 50px;
+  max-width: 441px;
+}
+.featuredtext{
+  text-decoration: none;
+}
+@media (max-width: 768px) {
+  .featured-articles {
+    padding: 5px; /* Adjusted padding for smaller screens */
+    margin-bottom: 30px; /* Reduced margin */
+    max-width: -webkit-fill-available;
+  }
+
+  .container {
+    justify-content: flex-start; /* Adjust alignment for smaller screens */
+  }
+
+  .article-card,
+  .featured-more {
+    max-width:80%; /* Full width on smaller screens */
+  }
+}

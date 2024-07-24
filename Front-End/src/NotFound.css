@@ -1,0 +1,21 @@
+/* NotFound.css */
+.not-found {
+    text-align: center;
+    padding: 20px;
+  }
+  
+  .not-found-image {
+    max-width: 600px;
+    height: auto;
+    margin-bottom: 20px;
+  }
+  
+  .not-found h1 {
+    font-size: 2em;
+    margin-bottom: 10px;
+  }
+  
+  .not-found p {
+    font-size: 1.2em;
+  }
+  

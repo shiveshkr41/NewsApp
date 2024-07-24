@@ -1,0 +1,48 @@
+.latest-news {
+  margin-bottom: 20px;
+  padding-top: 20px;
+  border-top: 1px solid #ddd;
+}
+.LTLN:hover{
+  .Latest-Homepage-t{
+    color:#868484;
+  }
+}
+.card-img-top {
+  object-fit: cover;
+  margin-bottom: 10px;
+}
+.cardlatest{
+  width: 272px;
+    height: 296px;
+}
+.text{
+  font-size: 1.125rem;
+  font-weight: 550;
+  letter-spacing: -.025rem;
+  line-height: 1.3125rem;
+  margin: 8px 0;
+    font-family: serif;
+    color: rgb(78, 76, 76);
+
+
+}
+.LTLN{
+  border-left: 1px solid #ddd;
+  margin-bottom: 1.5rem !important;
+  
+}
+.LTLN:first-child{
+  border: none;
+    }
+.LTLN:nth-child(5){
+      border: none;
+        }  
+@media (max-width: 768px) {
+.LatestGrid{
+  margin-left: 130px;
+}
+.latest-news{
+  width: 100%;
+}
+}

@@ -1,0 +1,144 @@
+.header {
+  background-color: #fff;
+  padding: 1rem 0;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 100;
+  justify-content: space-between;
+  border-bottom: 1px solid #c8c8c8;
+  padding-bottom: 65px;
+  border-top: 1px solid #e5e5e5;
+  transition: position 0.3s ease;
+
+  box-shadow: 0 -3px 10px rgba(0, 0, 0, .07);
+}
+
+.header__logo {
+  display: flex;
+  float: left;
+  margin-left: 2%;
+ max-width: 10%;
+}
+.h{
+  border-right: 2px solid #d5d7d8;
+  margin-right: 30px;
+}
+
+.header__logo a {
+  display: block;
+  height: 3rem;
+}
+
+.header__logo img {
+  height: 100%;
+}
+
+.sub {
+  border-right: 2px solid #d5d7d8;
+  height: 40px;
+  margin-right: 34px;
+  padding-right: 30px;
+}
+
+.header__actions {
+  float: right;
+  display: flex;
+  align-items: center;
+  padding-right: 40px;
+}
+
+.header__button {
+  background-color: #dc0000;
+  border: none;
+  font-size: .875rem;
+  color: #fff;
+  padding: 10px 16px 10px 16px;
+  margin-right: 8px;
+  transition: background-color 0.2s ease;
+  border-radius: 3px; /* Adjust this value as needed */
+}
+
+.header__button:hover {
+  background-color: #6e1111;
+}
+
+.header__link {
+  color: black;
+  margin-left: 1rem;
+  text-decoration: none;
+  transition: color 0.2s ease;
+  font-size: .875rem;
+  font-weight: 400;
+  line-height: 1.1em;
+}
+
+.header__link:hover {
+  color: #00235b;
+}
+
+.header__search {
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  align-items: center;
+  justify-content: center;
+  height: 2rem;
+  margin-left: 1rem;
+  padding: 0;
+  transition: background-color 0.2s ease;
+}
+.header-img{
+  width: 83%;
+}
+
+.header__search:hover {
+  background-color: #f2f2f2;
+}
+
+.header__search svg {
+  height: 1.5rem;
+  width: 1.5rem;
+  fill: white;
+}
+
+.header--fixed {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  padding-bottom: 20px;
+}
+@media only screen and (max-width: 768px) {
+ 
+
+  .header__logo {
+    width: 50%; /* Adjust width for smaller screens */
+    max-width: 250px; /* Adjust maximum width */
+    margin: 0 auto; /* Center align the logo */
+    padding-left: 0; /* Remove left padding */
+  }
+
+  .header__actions {
+    float: right;
+    padding-right: 0; /* Adjust spacing */
+    margin-left: 0; /* Push actions to the right */
+  }
+
+  
+  .header-nav{
+    max-width: 30%;
+    margin-left: 12px;
+  } 
+ 
+
+
+  .f{
+    display: none;
+  }
+}
+.header-nav{
+   width: 14%;
+    margin-right: 25px;
+    max-height: 45px;
+} 

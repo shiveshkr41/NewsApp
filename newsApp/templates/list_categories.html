@@ -1,0 +1,23 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>List Categories</title>
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+</head>
+<body>
+    <div>
+        <h2>List Categories</h2>
+        <ul>
+            {% for category in categories %}
+                <li>{{ category.name }} - <a href="{% url 'category-update' category.id %}">Edit</a> | <a href="{% url 'category-delete' category.id %}">Delete</a></li>
+            {% empty %}
+                <li>No categories found.</li>
+            {% endfor %}
+        </ul>
+        <a href="{% url 'category-create' %}">Create New Category</a>
+    </div>
+</body>
+</html>

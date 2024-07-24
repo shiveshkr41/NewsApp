@@ -1,0 +1,38 @@
+.CardLatestGrid{
+    width: 272px;
+    height: 130px;
+    margin-bottom: 65px;
+
+}
+
+.LatestGridtext{
+    color: #505050;
+    font-family: Tiempos Headline;
+    font-size: 1.5rem;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 1.75rem;
+    -webkit-text-decoration: none;
+    text-decoration: none;
+    
+}
+.gridhead{
+    float:left;
+}
+.CardLatestGrid:hover{
+    .LatestGridtext{
+      color:#868484;
+    }
+  }
+  .gridbd{
+
+    border-bottom: 1px solid #c8c8c8;
+    margin-top: 15px;
+  }
+  .gridbd:nth-child(3){
+    border-bottom: none;
+  }
+
+ .foryou-author-{
+    float: left;
+ }

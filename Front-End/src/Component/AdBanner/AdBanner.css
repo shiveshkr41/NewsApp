@@ -1,0 +1,60 @@
+.ad-banner {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: white;
+  height: 90px;
+}
+
+#ad-google_ads {
+  width: 100%;
+}
+
+.ad-content {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+}
+
+.ad-img {
+  width: 900px;
+  height: 90px;/* Maintain aspect ratio */
+}
+
+/* Responsive adjustments */
+@media (max-width: 1200px) {
+  .ad-img {
+    height: 70px;
+    width: 10%;
+  }
+}
+
+@media (max-width: 992px) {
+  .ad-banner {
+    height: 60px;
+  }
+}
+
+@media (max-width: 768px) {
+  .ad-banner {
+    height: 50px;
+  }
+
+  .ad-img {
+    width: 80%;
+  }
+}
+
+@media (max-width: 576px) {
+  .ad-banner {
+    height: 40px;
+    width: 100%;
+  }
+
+  .ad-img {
+    width: 100%;
+    height: 2.5rem;
+  }
+}

@@ -1,0 +1,51 @@
+.navigation {
+  display: flex;
+  justify-content: center; /* Center the items horizontally */
+  align-items: center; /* Center the items vertically */
+  background-color: #fff;
+  padding: 0.5rem 0;
+  border-bottom: 1px solid #c8c8c8;
+}
+
+.navigation-list {
+  display: flex;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.navigation-item {
+  margin-right: 2rem;
+  color: #282828;
+    font-size: .9375rem;
+}
+
+.navigation-link {
+  text-decoration: none;
+  color: #333;
+  font-weight: 540;
+  font-family: sans-serif;
+  
+}
+.navigation-link:hover{
+  color:#868484;
+}
+/* Remove the margin-right on the last item */
+.navigation-item:last-child {
+  margin-right: 0;
+}
+
+@media only screen and (max-width: 768px) {
+  .navigation{
+    display: none;
+  }
+  .navigation-list {
+    flex-direction: column; /* Stack items vertically on mobile */
+    align-items: center; /* Center items horizontally on mobile */
+  }
+
+  .navigation-item {
+    margin-right: 0; /* Remove margin between stacked items */
+    margin-bottom: 0.5rem; /* Add spacing between stacked items */
+  }
+}
