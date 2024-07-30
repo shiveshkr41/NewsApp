@@ -22,27 +22,27 @@ const Navigation = () => {
           </Link>
         </li>
         <li className="navigation-item">
-          <Link to="/" className="navigation-link">
+          <Link to="/Podcasts" className="navigation-link">
             Podcasts
           </Link>
         </li>
         <li className="navigation-item">
-          <Link to="/" className="navigation-link">
+          <Link to="/Idea" className="navigation-link">
             The Big Idea
           </Link>
         </li>
         <li className="navigation-item">
-          <Link to="/" className="navigation-link">
+          <Link to="/Store" className="navigation-link">
             Store
           </Link>
         </li>
         <li className="navigation-item">
-          <Link to="/" className="navigation-link">
+          <Link to="/Visuals" className="navigation-link">
             Data & Visuals
           </Link>
         </li>
         <li className="navigation-item">
-          <Link to="/" className="navigation-link">
+          <Link to="/Selections" className="navigation-link">
             Case Selections
           </Link>
         </li>

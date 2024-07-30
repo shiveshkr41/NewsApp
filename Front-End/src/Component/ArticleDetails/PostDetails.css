@@ -12,6 +12,11 @@
     font-size: 1rem;
     font-weight: 1500;
     margin-bottom:-.9rem;
+    display: flex;
+    margin-bottom: 1rem;
+  }
+  .postDetailsCat{
+    margin-right: 3rem;
   }
  .post-S{
   position: absolute;

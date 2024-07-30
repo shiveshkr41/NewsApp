@@ -6,7 +6,7 @@
     <div class="container">
         <h3 class="text-center"><b>{{ category.name }} Posts</b></h3>
         <center>
-            <hr class="w-25">
+            <hra class="w-25">
         </center>
         <div class="row mt-5">
             <div class="col-12 col-md-8 col-lg-9">
@@ -36,34 +36,28 @@
             <div class="col-12 col-md-4 col-lg-3">
                 <div class="sidebar-area">
 
-                    <!-- Add Widget -->
-                    <div class="single-widget-area add-widget mb-30">
-                        <a href="#">
-                            <img src="{% static 'img/bg-img/add3.png' %}" alt="">
-                        </a>
-                    </div>
 
                     <!-- Latest News Widget -->
-                    <div class="single-widget-area news-widget mb-30">
+                    <!-- <div class="single-widget-area news-widget mb-30">
                         <h4>Latest News</h4>
                         {% for lpost in latest %}
-                        <!-- Single News Area -->
-                        <div class="single-blog-post d-flex style-4 mb-30">
+                        Single News Area -->
+                        <!-- <div class="single-blog-post d-flex style-4 mb-30"> -->
                             <!-- Blog Thumbnail -->
-                            <div class="blog-thumbnail">
-                                <a href="{% url 'view-post' lpost.pk %}">
-                                    <img src="{{ lpost.banner_path.url }}" alt="{{ lpost.title }}">
-                                </a>
-                            </div>
+                            <!-- <div class="blog-thumbnail"> -->
+                                <!-- <a href="{% url 'view-post' lpost.pk %}"> -->
+                                    <!-- <img src="{{ lpost.banner_path.url }}" alt="{{ lpost.title }}"> -->
+                                <!-- </a> -->
+                            <!-- </div> --> 
 
                             <!-- Blog Content -->
-                            <div class="blog-content">
-                                <span class="post-date">{{ lpost.date_created|date:"M d, Y" }}</span>
-                                <a href="{% url 'view-post' lpost.pk %}" class="post-title">{{ lpost.title }}</a>
-                            </div>
-                        </div>
-                        {% endfor %}
-                    </div>
+                            <!-- <div class="blog-content"> -->
+                                <!-- <span class="post-date">{{ lpost.date_created|date:"M d, Y" }}</span> -->
+                                <!-- <a href="{% url 'view-post' lpost.pk %}" class="post-title">{{ lpost.title }}</a> -->
+                            <!-- </div> -->
+                        <!-- </div> -->
+                        <!-- {% endfor %} -->
+                    <!-- </div> -->
 
                 </div>
 
@@ -71,5 +65,5 @@
         </div>
     </div>
 </div>
-<hr>
+<hra>
 {% endblock content %}

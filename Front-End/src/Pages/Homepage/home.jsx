@@ -16,7 +16,7 @@ const Home = () => {
       <main className="main-content">
         <div></div>
         <div className='grid'>
-        <FeaturedArticles />
+        <FeaturedArticles postId={8} />
         <ForYou />
         <LatestGrid />
         </div>

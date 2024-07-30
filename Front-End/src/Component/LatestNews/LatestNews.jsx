@@ -1,6 +1,8 @@
+// src/components/LatestNews.js
 import React, { useEffect, useState } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './LatestNews.css';
+import { fetchPosts, fetchUserDetails } from '../../Services/apiService';
 
 const LatestNews = () => {
   const [latestPosts, setLatestPosts] = useState([]);
@@ -8,51 +10,35 @@ const LatestNews = () => {
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    const fetchPosts = async () => {
+    const fetchPostsData = async () => {
       try {
-        const response = await fetch('http://127.0.0.1:8000/apis/posts/');
-        const data = await response.json();
-        if (Array.isArray(data)) {
-          setLatestPosts(data.slice(0, 8)); // Fetch only the latest 8 posts
-        } else {
-          throw new Error("Invalid data format");
-        }
-      } catch (error) {
-        setError(error);
-      } finally {
-        setLoading(false);
-      }
-    };
+        const posts = await fetchPosts();
+        if (!Array.isArray(posts)) throw new Error("Invalid data format");
 
-    fetchPosts();
-  }, []);
-
-  useEffect(() => {
-    const fetchAuthors = async () => {
-      try {
-        const authorRequests = latestPosts.map(article =>
-          fetch(`http://127.0.0.1:8000/apis/users/${article.user}/`).then(response => response.json())
+        const slicedPosts = posts.slice(0, 8); // Fetch only the latest 8 posts
+        const authorRequests = slicedPosts.map(post =>
+          fetchUserDetails(post.user)
         );
         const authors = await Promise.all(authorRequests);
 
-        const updatedPosts = latestPosts.map((article, index) => ({
-          ...article,
+        const updatedPosts = slicedPosts.map((post, index) => ({
+          ...post,
           author: authors[index].username, // Assuming username is the field for author name
         }));
 
         setLatestPosts(updatedPosts);
       } catch (error) {
-        setError(error);
+        setError(error.message);
+      } finally {
+        setLoading(false);
       }
     };
 
-    if (latestPosts.length > 0) {
-      fetchAuthors();
-    }
-  }, [latestPosts.length]);
+    fetchPostsData();
+  }, []);
 
   if (loading) return <p>Loading...</p>;
-  if (error) return <p>Error loading articles: {error.message}</p>;
+  if (error) return <p>Error loading articles: {error}</p>;
 
   return (
     <section className="latest-news">

@@ -8,7 +8,7 @@
                 <nav class="classy-navbar justify-content-between" id="newsboxNav">
 
                     <!-- Nav brand -->
-                    <a href="index.html" class="nav-brand"><img src="{% static 'img/core-img/logo.png' %}" alt=""></a>
+                    <a href="/" class="nav-brand"><img src="https://hbr.org/resources/css/images/HBR_logo_black.svg" alt=""></a>
 
                     <!-- Navbar Toggler -->
                     <div class="classy-navbar-toggler">
@@ -27,14 +27,16 @@
                         <div class="classynav">
                             <ul>
                                 <li><a href="{%url 'home-page'%}">Home</a>
-                                {% for category in categories %}
+                                <li><a href="{%url 'all-posts'%}">All Posts</a>
+                                <li><a href="{%url 'category-list'%}">Categories</a>
+                                <!-- {% for category in categories %}
                                 <li><a href="{% url 'category-post' category.id %}">{{category}}</a></li>
-                                {% endfor %}
+                                {% endfor %} -->
                                 {% if not user.id %}
                                 <li><a href="{% url 'login-page' %}">Login</a></li>
                                 {% else %}
                                 <li>
-                                    <a href="#">Howdy, {{user.username}}</a>
+                                    <a href="#">Hello, {{user.username}}</a>
                                     <ul class="dropdown">
                                         <li><a href="{% url 'profile-page' %}">Profile</a></li>
                                         <li><a href="{% url 'new-post' %}">New Post</a></li>

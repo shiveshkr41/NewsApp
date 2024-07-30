@@ -1,10 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import OverlayMenu from '../nav/Navigation_2'; // Adjust the path as necessary
 import './header.css';
-import Cookies from 'js-cookie';
 
 function Header() {
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [isFixed, setIsFixed] = useState(false);
   const [isOverlayOpen, setIsOverlayOpen] = useState(false);
 
@@ -12,59 +10,6 @@ function Header() {
     setIsOverlayOpen(!isOverlayOpen);
   };
 
-  const get_csrf_token = () => {
-    const token = Cookies.get('csrftoken');
-    console.log('CSRF Token:', token); // Log the CSRF token
-    return token;
-  };
-
-  const checkAuthStatus = async () => {
-    try {
-      const response = await fetch('http://127.0.0.1:8000/apis/login_status/', {
-        method: 'GET',
-        credentials: 'include', // Ensure cookies are sent
-        headers: {
-          'X-CSRFToken': get_csrf_token(), // Set CSRF token header
-          'Content-Type': 'application/json', // Ensure proper content type
-        },
-      });
-  
-      if (response.ok) {
-        // Handle successful authentication
-        console.log('Authenticated');
-      } else {
-        // Handle failed authentication
-        console.log('Not authenticated');
-      }
-    } catch (error) {
-      console.error('Error checking authentication:', error);
-    }
-  };
-
-  useEffect(() => {
-    checkAuthStatus();
-  });
-
-  const handleLogout = async () => {
-    try {
-      const csrfToken = get_csrf_token();
-      const response = await fetch('http://127.0.0.1:8000/apis/logout/', {
-        method: 'POST',
-        credentials: 'include',
-        headers: {
-          'X-CSRFToken': csrfToken,
-        },
-      });
-      if (response.ok) {
-        setIsLoggedIn(false);
-        window.location.href = '/';
-      } else {
-        console.error('Failed to logout');
-      }
-    } catch (error) {
-      console.error('Error logging out:', error);
-    }
-  };
 
   useEffect(() => {
     const handleScroll = () => {
@@ -103,20 +48,11 @@ function Header() {
       <div className="header__actions">
         <div className="sub">
           <button className="header__button f">Subscribe</button>
-          {isLoggedIn ? (
-            <>
-              <button className="header__button" onClick={handleLogout}>
-                Logout
-              </button>
-              <a href="/profile-page">Profile</a>
-              <a href="/new-post">New Post</a>
-              <a href="/all-posts">All Posts</a>
-            </>
-          ) : (
-            <a href="/login/" className="header__link">
+          
+            <a href="http://127.0.0.1:8000" className="header__link">
               Sign In
             </a>
-          )}
+          
         </div>
         <button className="header__search f">
           <svg

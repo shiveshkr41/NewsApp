@@ -9,11 +9,39 @@ from .models import Post, Category, Tag
 import json
 from django.http import JsonResponse
 from newsApp import models, forms
-
+from django.core.exceptions import PermissionDenied
 from django.shortcuts import render, redirect, get_object_or_404
 
 from .forms import CategoryForm,TagForm
 # views.py
+from .models import Post, Comment
+
+
+def home(request):
+    # Fetch counts from the database
+    posts_count = Post.objects.count()
+    categories_count = Category.objects.count()  # Count the number of Category instances
+    comments_count = Comment.objects.count()
+    users_count = User.objects.count()
+    subscribers_count = 0  # Replace with actual count if you have a Subscriber model
+
+    # Create context dictionary with counts
+    context = {
+        'page': 'Dashboard',
+        'page_title': 'Dashboard',
+        'posts': Post.objects.order_by('-date_created').all() if request.user.is_superuser else Post.objects.filter(user=request.user).order_by('-date_created'),
+        'latest': Post.objects.filter(status=1).order_by('-date_created')[:10],
+        'posts_count': posts_count,
+        'categories_count': categories_count,
+        'comments_count': comments_count,
+        'users_count': users_count,
+        'subscribers_count': subscribers_count,
+    }
+
+    return render(request, 'home.html', context)  # Replace 'your_template.html' with your actual template name
+
+    # Render the dashboard.html template with context
+    return render(request, 'home.html', context)
 
 
 
@@ -93,15 +121,16 @@ def context_data():
 
 # Create your views here.
 
-def home(request):
+def home1(request):
     context = context_data()
-    posts = models.Post.objects.filter(status = 1).order_by('-date_created').all()
+    posts = models.Post.objects.filter(status=1).order_by('-date_created').all()
+    print(posts)  # Debug: Check if posts are fetched
     context['page'] = 'home'
     context['page_title'] = 'Home'
     context['latest_top'] = posts[:2]
     context['latest_bottom'] = posts[2:12]
-    print(posts)
     return render(request, 'home.html', context)
+
 
 #login
 
@@ -145,7 +174,7 @@ def signup(request):
 #Logout
 def logoutuser(request):
     logout(request)
-    return redirect('/')
+    return redirect('/login')
 
 
 @login_required
@@ -197,7 +226,13 @@ def profile(request):
 @login_required
 def manage_post(request, post_id=None):
     if post_id:
-        post = Post.objects.get(id=post_id)
+        post = get_object_or_404(Post, id=post_id)
+        
+        # Only allow access if the user is the author or a superuser
+        if post.user != request.user and not request.user.is_superuser:
+            messages.error(request, "You do not have permission to edit this post.")
+            return redirect('view-post', pk=post_id)  # Redirect to the desired page
+        
         selected_categories = list(post.categories.values_list('id', flat=True))
         selected_tags = list(post.tags.values_list('id', flat=True))
     else:
@@ -215,6 +250,7 @@ def manage_post(request, post_id=None):
         'selected_tags': selected_tags,
     }
     return render(request, 'manage_post.html', context)
+
 
 
 @login_required
@@ -282,10 +318,17 @@ def save_comment(request):
 
 from django.http import JsonResponse
 
+@login_required
 def list_posts(request):
-    posts = models.Post.objects.filter(status=1).order_by('-date_created').all()
-    data = list(posts.values())  # Convert queryset to list of dictionaries
-    return JsonResponse(data, safe=False)
+    context = context_data()
+    context['page'] = 'all_post'
+    context['page_title'] = 'All Posts'
+    
+    context['posts'] = models.Post.objects.order_by('-date_created').all()
+
+    context['latest'] = models.Post.objects.filter(status = 1).order_by('-date_created').all()[:10]
+    
+    return render(request, 'posts.html', context)
 
 
 

@@ -10,7 +10,7 @@
     <!-- The above 4 meta tags *must* come first in the head; any other head content must come *after* these tags -->
 
     <!-- Title -->
-    <title>{{page_title}} - {{site_name}}</title>
+    <title>{{page_title}} - Hardvard Business</title>
 
     <!-- Favicon -->
     <link rel="icon" href="{% static 'img/core-img/favicon.ico'  %}">
@@ -32,6 +32,7 @@
 </head>
 
 <body>
+   
     <!-- Preloader -->
     <div class="preloader d-flex align-items-center justify-content-center">
         <div class="lds-ellipsis">
@@ -44,6 +45,15 @@
 
     <!-- ##### Header Area Start ##### -->
     {% include './top-navigation.html' %}
+    <center>
+    {% if messages %}
+    <ul class="messages">
+        {% for message in messages %}
+            <li{% if message.tags %} class="{{ message.tags }}"{% endif %}><h1>You are not allowed to do this action.</h1>Cick here to know more.</li>
+        {% endfor %}
+    </ul>
+{% endif %}
+</center>
     <!-- ##### Header Area End ##### -->
     {% if messages %}
     <div class="container-fluid">
@@ -54,7 +64,7 @@
                     <div class="d-flex w-100">
                         <div class="col-auto flex-shrink-1 flex-grow-1">{{ message|safe }}</div>
                         <div class="col-auto text-center">
-                            <a class="text-dark text-sm" type="javascript:void(0)" onclick="$(this).closest('.alert').remove()"><i class="fa fa-times"></i></a>
+                            <a class="text-dark text-sm" type="javascript:void(0)" onclick="$(this).closest('.alert').remove()"><i class="fa fa-times"></i></a  
                         </div>
                     </div>
 
@@ -71,6 +81,7 @@
         </script>
     </div>
     {% endif %} {% block content %} {% endblock content %}
+    <div style="margin-top: 10%;"></div>
     <!-- ##### Footer Area Start ##### -->
     {% include './footer.html' %}
     <!-- ##### Footer Area Start ##### -->

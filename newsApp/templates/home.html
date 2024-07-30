@@ -1,9 +1,74 @@
-{% extends 'layouts/base.html' %}{% load static %} {% block content %}
-<div class="news-area section-padding-100-70">
-    <div class="container">
-        <h3 class="text-center"><b>{{category.name}} Posts</b></h3>
+{% extends "layouts/base.html" %}
+
+{% block title %} Dashboard {% endblock %} 
+
+<!-- Specific Page CSS goes HERE  -->
+{% block stylesheets %}{% endblock stylesheets %}
+
+{% block content %}
+
+<div class="main-content-container container-fluid px-4">
+    <!-- Page Header -->
+    <div class="page-header row no-gutters py-4">
+      <div class="col-12 col-sm-4 text-center text-sm-left mb-0">
         <center>
-            <hr class="w-25">
+        <h1 class="page-title">Dashboard</h1>
+    </center>
+      </div>
+    </div>
+    <!-- End Page Header -->
+    <!-- Small Stats Blocks -->
+    <div class="row">
+      <div class="col-lg col-md-6 col-sm-6 mb-4">
+        <div class="container">
+            <div class="row">
+              <div class="col-lg-3 col-md-6">
+                <div class="card">
+                  <div class="card-body">
+                    <h5 class="card-title">Posts</h5>
+                    <h6 class="card-subtitle mb-2 text-muted">Total Posts</h6>
+                    <p class="card-text">{{ posts_count|default:"0" }}</p>
+                  </div>
+                </div>
+              </div>
+              <div class="col-lg-3 col-md-6">
+                <div class="card">
+                  <div class="card-body">
+                    <h5 class="card-title">Categories</h5>
+                    <h6 class="card-subtitle mb-2 text-muted">Total Categories</h6>
+                    <p class="card-text">{{ categories_count|default:"0" }}</p>
+                  </div>
+                </div>
+              </div>
+              <div class="col-lg-3 col-md-6">
+                <div class="card">
+                  <div class="card-body">
+                    <h5 class="card-title">Comments</h5>
+                    <h6 class="card-subtitle mb-2 text-muted">Total Comments</h6>
+                    <p class="card-text">{{ comments_count|default:"0" }}</p>
+                  </div>
+                </div>
+              </div>
+              <div class="col-lg-3 col-md-6">
+                <div class="card">
+                  <div class="card-body">
+                    <h5 class="card-title">Users</h5>
+                    <h6 class="card-subtitle mb-2 text-muted">Total Users</h6>
+                    <p class="card-text">{{ users_count|default:"0" }}</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+    </div>
+
+    </div>
+  </div>
+  <div class="news-area section-padding-100-70">
+    <div class="container">
+        <h3 class="text-center"><b>Posts</b></h3>
+        <center>
+            <hra class="w-25">
         </center>
         <div class="row mt-5">
             <div class="col-12 col-md-8 col-lg-9">
@@ -26,37 +91,13 @@
                     </div>
                     {% endfor %}
                 </div>
+
             </div>
 
             <div class="col-12 col-md-4 col-lg-3">
                 <div class="sidebar-area">
 
-                    <!-- Add Widget -->
-                    <div class="single-widget-area add-widget mb-30">
-                        <a href="#">
-                            <img src="{% static 'img/bg-img/add3.png' %}" alt="">
-                        </a>
-                    </div>
-
-                    <!-- Latest News Widget -->
-                    <div class="single-widget-area news-widget mb-30">
-                        <h4>Latest News</h4>
-                            {% for lpost in latest %}
-                            <!-- Single News Area -->
-                            <div class="single-blog-post d-flex style-4 mb-30">
-                                <!-- Blog Thumbnail -->
-                                <div class="blog-thumbnail">
-                                    <a href="{% url 'view-post' lpost.pk %}"><img src="{{lpost.banner_path.url}}" alt="{{lpost.title}}"></a>
-                                </div>
-
-                                <!-- Blog Content -->
-                                <div class="blog-content">
-                                    <span class="post-date">{{lpost.date_created|date:"M d, Y"}}</span>
-                                    <a href="{% url 'view-post' lpost.pk %}" class="post-title">{{lpost.title}}</a>
-                                </div>
-                            </div>
-                            {% endfor %}
-                    </div>
+                    
 
                 </div>
 
@@ -64,4 +105,7 @@
         </div>
     </div>
 </div>
-<hr> {% endblock content %}
+
+{% endblock content %}
+
+

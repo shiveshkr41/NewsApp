@@ -4,6 +4,10 @@
   width: 340px;
   height: 300px;
   margin-right: 5px;
+  .container{
+
+  padding-left: 5%;
+  }
 }
 
 .goryou:nth-child(2){
@@ -22,7 +26,7 @@
 }
 
 .CardFoyYou {
-  width: 272px;
+  width: 302px;
 }
 
 .card .card-img-top {
@@ -43,15 +47,11 @@
   font-size: 1rem; /* Adjust font size of the text */
 }
 
-.foryou-categories {
-  margin-top: 10px;
-  margin-bottom: 7px;
-}
 
 .category-link {
   color: #075e64;
   font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-  font-size: .9375rem;
+  font-size: 1.2rem;
   font-style: normal;
   font-weight: 700;
   letter-spacing: -.0125rem;
@@ -80,13 +80,14 @@
 }
 .forYoutext{
   color: #787878;
-  font-family: serif;
+  font-family: 'work sans';
   font-size: 1rem;
   font-weight: 400;
   line-height: 1.1875rem;
-  margin: 8px 0;
 }
-
+.foryoucard{
+ height: 380px;
+}
 .hv:hover{
   .foryoutitle{
     color:#868484;
@@ -107,14 +108,25 @@
 }
 
 @media (max-width: 768px) {
+ 
+  .forYourow{
+    display: flex;
+  }
   .forYou {
     width: 100%;
-    height: 100%;
-    max-width: 100%; /* Full width on smaller screens */
+    height: auto;
+    margin-right: 0;
   }
 
   .CardFoyYou {
-    width: 100%; /* Full width for smaller screens */
-    max-width: 100%; /* Adjust max-width as needed */
+    width: 100%;
+    max-width: 100%;
   }
+
+  .foryoucard {
+    height: auto;
+    margin-bottom: 1rem;
+  }
+
+ 
 }

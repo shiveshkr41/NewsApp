@@ -1,23 +1,35 @@
+{% extends "layouts/base.html" %}
 {% load static %}
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>List Categories</title>
-    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
-</head>
-<body>
-    <div>
-        <h2>List Categories</h2>
-        <ul>
-            {% for category in categories %}
-                <li>{{ category.name }} - <a href="{% url 'category-update' category.id %}">Edit</a> | <a href="{% url 'category-delete' category.id %}">Delete</a></li>
-            {% empty %}
-                <li>No categories found.</li>
-            {% endfor %}
-        </ul>
-        <a href="{% url 'category-create' %}">Create New Category</a>
+{% block content %}
+    <div class="container mt-5">
+        <h2 class="mb-4 font-weight-bold">List Categories</h2>
+        <div class="row">
+            <div class="col-12">
+                <div class="list-group">
+                    {% for category in categories %}
+                        <div class="list-group-item d-flex justify-content-between align-items-center">
+                            <a href="{% url 'category-post' category.id %}">{{ category.name }}</a>
+                            {% if user.is_superuser %}
+                            <div>
+                                <a href="{% url 'category-update' category.id %}" class="btn btn-sm btn-primary">Edit</a>
+                                <a href="{% url 'category-delete' category.id %}" class="btn btn-sm btn-danger">Delete</a>
+                            </div>
+                            {% endif %}
+                        </div>
+                    {% empty %}
+                        <div class="list-group-item">
+                            No categories found.
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+        {% if user.is_superuser %}
+        <div class="row mt-4">
+            <div class="col-12">
+                <a href="{% url 'category-create' %}" class="btn btn-success">Create New Category</a>
+            </div>
+        </div>
+        {% endif %}
     </div>
-</body>
-</html>
+{% endblock content %}
