@@ -42,7 +42,7 @@ function Header() {
         </svg>
         <div className="h"></div>
         <a href="/">
-          <img src="https://hbr.org/resources/css/images/HBR_logo_black.svg" className="header-img" alt="Harvard Business Review" />
+          <img src="https://thepublive.com/assets/images/main_logo.svg" className="header-img" alt="Harvard Business Review" />
         </a>
       </div>
       <div className="header__actions">

@@ -1,58 +1,51 @@
 import React, { useEffect, useState } from 'react';
-import { useParams, useLocation } from 'react-router-dom';
+import { useParams, useLocation, useNavigate } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './ArticleList.css';
-import { fetchPosts, fetchUserDetails, fetchCategoryDetails } from '../../Services/apiService';
+import { fetchPosts, fetchCategoryDetails, fetchPostsByCategoryPage} from '../../Services/apiService';
+
+const truncateText = (text, maxWords) => {
+  const words = text.split(' ');
+  if (words.length > maxWords) {
+    return words.slice(0, maxWords).join(' ') + '...';
+  }
+  return text;
+};
 
 const LatestNews = ({ fetchUrl }) => {
   const { categoryId } = useParams();
   const location = useLocation();
+  const navigate = useNavigate();
   const [latestPosts, setLatestPosts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const [tl, setPageTitle] = useState("");
+  const [pageTitle, setPageTitle] = useState("");
+  const [currentPage, setCurrentPage] = useState(1);
+  const [totalPages, setTotalPages] = useState(1);
 
   useEffect(() => {
     const loadPosts = async () => {
-      let url;
       try {
+        let data = [];
         if (location.pathname === "/latest") {
-          url = `${fetchUrl}/posts/`;
           setPageTitle("Latest Posts");
-
-          const data = await fetchPosts();
-          const postsWithAuthors = await Promise.all(data.map(async (post) => {
-            const userData = await fetchUserDetails(post.user);
-            const categoryResponses = await Promise.all(
-              post.categories.map(categoryId => fetchCategoryDetails(categoryId))
-            );
-            const categories = categoryResponses.map(category => ({
-              id: category.id,
-              name: category.name
-            }));
-            post.banner_path = `${post.banner_path.replace(fetchUrl, '')}`;
-            return { ...post, authorName: userData.username, categories };
-          }));
-          setLatestPosts(postsWithAuthors);
+          const response = await fetchPosts(currentPage);
+          data = response.data || [];
+          setTotalPages(response.totalPages || 10);
         } else if (categoryId) {
-          url = `${fetchUrl}${categoryId}/posts/`;
           const categoryData = await fetchCategoryDetails(categoryId);
-          setPageTitle(`${categoryData.name} Posts`);
-
-          const data = await fetchPosts();
-          const postsWithAuthors = await Promise.all(data.map(async (post) => {
-            const userData = await fetchUserDetails(post.user);
-            const categoryResponses = await Promise.all(
-              post.categories.map(categoryId => fetchCategoryDetails(categoryId))
-            );
-            const categories = categoryResponses.map(category => ({
-              id: category.id,
-              name: category.name
-            }));
-            post.banner_path = `${post.banner_path.replace(fetchUrl, '')}`;
-            return { ...post, authorName: userData.username, categories };
+          setPageTitle(`${categoryData.data.name} Posts`);
+          const response = await fetchPostsByCategoryPage(categoryId, currentPage);
+          data = response.data || [];
+          setTotalPages(response.totalPages || 10);
+        }
+        if (Array.isArray(data)) {
+          const postsWithDetails = await Promise.all(data.map(async (post) => {
+            return { ...post, authorName: "userData.username" };
           }));
-          setLatestPosts(postsWithAuthors.slice(0, 8)); // Set the first 8 posts directly
+          setLatestPosts(postsWithDetails);
+        } else {
+          setError(new Error("No posts available."));
         }
         setLoading(false);
       } catch (error) {
@@ -62,7 +55,25 @@ const LatestNews = ({ fetchUrl }) => {
     };
 
     loadPosts();
-  }, [fetchUrl, categoryId, location.pathname]);
+  }, [fetchUrl, categoryId, location.pathname, currentPage]);
+
+  const handlePageChange = (newPage) => {
+    if (newPage >= 1 && newPage <= totalPages) {
+      setCurrentPage(newPage);
+      navigate({
+        pathname: location.pathname,
+        search: `?page=${newPage}`
+      });
+    }
+  };
+
+  useEffect(() => {
+    const queryParams = new URLSearchParams(location.search);
+    const page = parseInt(queryParams.get('page'), 10);
+    if (page) {
+      setCurrentPage(page);
+    }
+  }, [location.search]);
 
   if (loading) return <p>Loading...</p>;
   if (error) return <p>Error loading articles: {error.message}</p>;
@@ -70,37 +81,38 @@ const LatestNews = ({ fetchUrl }) => {
   return (
     <section className="latest-news-page">
       <div className="container">
-        <h1 className='thelatest'>{tl}</h1>
+        <h1 className="thelatest">{pageTitle}</h1>
         <div className="row">
           {latestPosts.map((article) => (
             <div key={article.id} className="latestp">
               <div className="Latestc">
-                <div className='ArticeList-p'>
-                  <img src={article.banner_path} alt={article.title} className="card-img-top latestimg" />
+                <div className="ArticeList-p">
+                  <img src={article.banner_url} alt={article.title} className="card-img-top latestimg" />
                   <div className="card-body">
                     <h5 className="card-title">
-                      <a className='text ArticleList-t' href={`/articles/${article.id}`}>{article.title}</a>
+                      <a className="text ArticleList-t" href={`/articles/${article.id}`}>{article.title}</a>
                     </h5>
-                    <p className="latest-author">Author: {article.authorName}</p>
                     <p className="latestptext">{truncateText(article.short_description, 50)}</p>
+                    <p className="card-text">Author: {article.contributors.map(contributor => contributor.name).join(', ')}</p>
                   </div>
                 </div>
               </div>
             </div>
           ))}
         </div>
+        
       </div>
+      <div className="pagination">
+          <button disabled={currentPage === 1} onClick={() => handlePageChange(currentPage - 1)}>
+            Previous
+          </button>
+          <span>{currentPage} of {totalPages}</span>
+          <button disabled={currentPage === totalPages} onClick={() => handlePageChange(currentPage + 1)}>
+            Next
+          </button>
+        </div>
     </section>
   );
 };
-
-// Function to truncate text to a specific number of words
-function truncateText(text, maxWords) {
-  const words = text.split(' ');
-  if (words.length > maxWords) {
-    return words.slice(0, maxWords).join(' ') + '...';
-  }
-  return text;
-}
 
 export default LatestNews;

@@ -1,9 +1,8 @@
-// src/components/FeaturedArticles.js
 import React, { useEffect, useState } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Link } from 'react-router-dom';
 import './FeaturedArticles.css';
-import { fetchCategoryDetails, fetchPostDetails } from '../../Services/apiService'; // Import the service function
+import { fetchPostDetails } from '../../Services/apiService';
 
 const FeaturedArticles = ({ postId }) => {
   const [article, setArticle] = useState(null);
@@ -14,17 +13,17 @@ const FeaturedArticles = ({ postId }) => {
     const loadArticle = async () => {
       try {
         const data = await fetchPostDetails(postId);
-        const categoryResponses = await Promise.all(
-          data.categories.map(categoryId => fetchCategoryDetails(categoryId))
-        );
 
-        const categories = categoryResponses.map(category => ({
+        // Ensure data is defined and categories is an array
+        const categories = Array.isArray(data.categories) ? data.categories.map(category => ({
           id: category.id,
-          name: category.name
-        }));
+          name: category.name,
+          absolute_url: category.absolute_url,
+        })) : [];
 
         setArticle({ ...data, categories });
       } catch (error) {
+        console.error('Error loading article:', error); // Log the error
         setError(error);
       } finally {
         setLoading(false);
@@ -43,21 +42,22 @@ const FeaturedArticles = ({ postId }) => {
         {article ? (
           <div className="row1">
             <div className="FeaturedRow">
-              <a href={`/articles/${article.id}`} className="featuredtext">
-                <img src={article.banner_path} alt={article.title} className="card-img article-image" />
+              <a href={article.absolute_url} className="featuredtext">
+                <img src={article.data.banner_url} alt={article.data.title} className="card-img article-image" />
                 <div className="featured-categories">
-                    {article.categories.map(category => (
-                      <Link key={category.id} to={`/category/${category.id}/posts`} className="category-link">
-                        {category.name}
-                      </Link>
-                    ))}
-                  </div>
+                  {article.data.categories.length > 0 ? (
+                    <Link key={article.data.categories[0].id} to={article.data.categories[0].absolute_url} className="category-link">
+                      {article.data.categories[0].name}
+                    </Link>
+                  ) : (
+                    <span>No categories available</span>
+                  )}
+                </div>
                 <div className="card-body">
                   <h1 className="featuredTitle">
-                    <a className='featuredtext' href={`/articles/${article.id}`}>{article.title}</a>
+                    <a className='featuredtext' href={`/articles/${article.data.id}`}>{article.data.title}</a>
                   </h1>
-                  <p className="forYoutext">{truncateText(article.short_description, 27)}</p>
-                  
+                  <p className="forYoutext">{truncateText(article.data.short_description || '', 37)}</p>
                 </div>
               </a>
             </div>

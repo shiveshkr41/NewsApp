@@ -5,11 +5,11 @@ import AdBanner from './Component/AdBanner/AdBanner';
 import Header from './Component/header/header';
 import Navigation from './Component/nav/Navigation';
 import Footer from './Component/footer/Footer';
-import Latest from './Component/post/ArticleList';
+import ArticleList from './Component/post/ArticleList';
 import NotFound from './NotFound';
 import PostDetails from './Component/ArticleDetails/PostDetails';
+
 function App() {
-  const apiBaseUrl = 'http://127.0.0.1:8000/apis';
 
   return (
     <Router>
@@ -20,9 +20,9 @@ function App() {
 
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route path="latest" element={<Latest fetchUrl={apiBaseUrl} />} />
-          <Route path="category/:categoryId/posts" element={<Latest fetchUrl={`${apiBaseUrl}/category/`} />} />
-          <Route path="articles/:postId" element={<PostDetails fetchUrl={`${apiBaseUrl}/`} />} />
+          <Route path="latest" element={<ArticleList />} />
+          <Route path="category/:categoryId/:slug*"element={<ArticleList/>} />
+          <Route path="articles/:postId" element={<PostDetails  />} />
           <Route path="*" element={<NotFound />} /> {/* Catch-all route */}
         </Routes>
 

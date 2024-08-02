@@ -4,12 +4,8 @@
   margin-right: 17em;
   margin-left: 17em;
 }
-@media only screen and (max-width: 768px) {
-  .app{
-  margin-right: 0px;
-  margin-left: 0px;
-  }
-}
+
+
 .App-logo {
   height: 40vmin;
   pointer-events: none;
@@ -48,7 +44,7 @@
 .grid{
   @media only screen and (max-width: 768px) {
     display: flexbox;
-    width: 80%;
+    
   }
   display: flex;
 }

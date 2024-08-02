@@ -1,51 +1,35 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom'; // Use Link for internal navigation
 import './Navigation.css';
+import { fetchTopCategories } from '../../Services/apiService'; // Assuming you have this function
 
 const Navigation = () => {
+  const [categories, setCategories] = useState([]);
+
+  useEffect(() => {
+    const fetchCategories = async () => {
+      try {
+        const response = await fetchTopCategories();
+        setCategories(response.data.slice(0, 10)); // Fetch top 10 categories
+      } catch (error) {
+        console.error('Error fetching categories:', error);
+      }
+    };
+
+    fetchCategories();
+  }, []);
+
   return (
     <nav className="navigation">
       <ul className="navigation-list">
-        <li className="navigation-item">
-          <Link to="/latest" className="navigation-link">
-            Latest
-          </Link>
-        </li>
-        <li className="navigation-item">
-          <Link to="/category/2/posts/" className="navigation-link">
-            Demo
-          </Link>
-        </li>
-        <li className="navigation-item">
-          <Link to="/category/1/posts/" className="navigation-link">
-            Business
-          </Link>
-        </li>
-        <li className="navigation-item">
-          <Link to="/Podcasts" className="navigation-link">
-            Podcasts
-          </Link>
-        </li>
-        <li className="navigation-item">
-          <Link to="/Idea" className="navigation-link">
-            The Big Idea
-          </Link>
-        </li>
-        <li className="navigation-item">
-          <Link to="/Store" className="navigation-link">
-            Store
-          </Link>
-        </li>
-        <li className="navigation-item">
-          <Link to="/Visuals" className="navigation-link">
-            Data & Visuals
-          </Link>
-        </li>
-        <li className="navigation-item">
-          <Link to="/Selections" className="navigation-link">
-            Case Selections
-          </Link>
-        </li>
+        {categories.map(category => (
+          <li key={category.id} className="navigation-item">
+            <Link to={`/category/${category.id}/${category.slug}`} className="navigation-link">
+              {category.name}
+            </Link>
+          </li>
+        ))}
+        
       </ul>
     </nav>
   );

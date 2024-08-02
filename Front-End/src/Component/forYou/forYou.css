@@ -1,52 +1,50 @@
-
 .forYou {
   margin-top: 45px;
   width: 340px;
   height: 300px;
   margin-right: 5px;
-  .container{
-
-  padding-left: 5%;
-  }
 }
 
-.goryou:nth-child(2){
+.forYou .container {
+  padding-left: 5%;
+}
+
+.goryou:nth-child(2) {
   border-bottom: none;
 }
+
 .Gcon {
   border-right: 1px solid #e2e2e2;
   border-left: 1px solid #e2e2e2;
   height: 650px;
 }
-.foryoucard:nth-child(2){
 
+.foryoucard:nth-child(2) {
   border-bottom: none;
-  margin-top: -13%;
-
 }
 
 .CardFoyYou {
   width: 302px;
+  position: absolute;
 }
 
 .card .card-img-top {
-  max-width: 100%; /* Ensure image fits within the card */
-  max-height: 200px; /* Adjust the maximum height of the image */
-  object-fit: cover; /* Ensure the image covers the entire space */
+  max-width: 100%;
+  max-height: 200px;
+  object-fit: cover;
 }
 
 .card .card-body {
-  padding: 1rem; /* Adjust padding within the card body */
+  padding: 1rem;
 }
 
 .card .card-title {
-  font-size: 1.25rem; /* Adjust font size of the title */
+  font-size: 1.25rem;
 }
 
 .card .card-text {
-  font-size: 1rem; /* Adjust font size of the text */
+  font-size: 1rem;
 }
-
 
 .category-link {
   color: #075e64;
@@ -56,7 +54,6 @@
   font-weight: 700;
   letter-spacing: -.0125rem;
   line-height: 1rem;
-  margin-right: 100%;
   text-decoration: none;
 }
 
@@ -67,36 +64,36 @@
 
 .forYourow {
   flex-wrap: wrap;
-  justify-content: space-between;  
+  justify-content: space-between;
 }
 
 .foryoutitle {
-  color: #615e5e;;
+  color: #615e5e;
   font-family: Arial, Helvetica, sans-serif;
   font-size: 1.4rem;
   font-style: normal;
   font-weight: 550;
   line-height: 1.75rem;
+  margin-bottom: 0px;
 }
-.forYoutext{
+
+.forYoutext {
   color: #787878;
   font-family: 'work sans';
   font-size: 1rem;
   font-weight: 400;
   line-height: 1.1875rem;
 }
-.foryoucard{
- height: 380px;
-}
-.hv:hover{
-  .foryoutitle{
-    color:#868484;
-  }
-}
 
-.foryoucard{
+.foryoucard {
+  height: 380px;
   border-bottom: 1px solid #e2e2e2;
 }
+
+.hv:hover .foryoutitle {
+  color: #868484;
+}
+
 .foryou-author {
   color: #5c5a5a;
   font-family: GT America;
@@ -108,10 +105,10 @@
 }
 
 @media (max-width: 768px) {
- 
-  .forYourow{
-    display: flex;
+  .forYourow {
+    display: block;
   }
+
   .forYou {
     width: 100%;
     height: auto;
@@ -121,12 +118,32 @@
   .CardFoyYou {
     width: 100%;
     max-width: 100%;
+    position: static;
   }
 
   .foryoucard {
     height: auto;
     margin-bottom: 1rem;
+    border-bottom: none;
   }
 
- 
+  .Gcon {
+    border-right: none;
+    border-left: none;
+    height: auto;
+  }
+
+  .CardFoyYou,
+  .card .card-img-top,
+  .card .card-body,
+  .card .card-title,
+  .card .card-text,
+  .category-link,
+  .text,
+  .forYourow,
+  .foryoutitle,
+  .forYoutext,
+  .foryou-author {
+    all: unset; /* Reset all styles for smaller screens */
+  }
 }

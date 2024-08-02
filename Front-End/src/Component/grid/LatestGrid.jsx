@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './LatestGrid.css';
-import { fetchPosts, fetchUserDetails } from '../../Services/apiService';
+import { fetchPosts } from '../../Services/apiService';
 
 const LatestGrid = () => {
   const [latestPosts, setLatestPosts] = useState([]);
@@ -11,19 +11,18 @@ const LatestGrid = () => {
   useEffect(() => {
     const loadPosts = async () => {
       try {
-        const data = await fetchPosts();
-        if (Array.isArray(data)) {
-          const postsWithAuthors = await Promise.all(data.slice(0, 3).map(async (post) => {
-            const userData = await fetchUserDetails(post.user);
-            return { ...post, authorName: userData.username };
-          }));
-          setLatestPosts(postsWithAuthors);
+        const data = await fetchPosts(1);
+        console.log('Fetched posts:', data); // Log fetched posts
+
+        if (Array.isArray(data.data)) {
+          const postsToDisplay = data.data.slice(0, 4); // Limit to the first three posts
+          setLatestPosts(postsToDisplay);
         } else {
           throw new Error("Invalid data format");
         }
-        setLoading(false);
       } catch (error) {
         setError(error);
+      } finally {
         setLoading(false);
       }
     };
@@ -36,29 +35,26 @@ const LatestGrid = () => {
 
   return (
     <section className="forYou">
-        
       <div className="container Glat">
-      <h5 className='gridhead'>Latest</h5>
+        <h5 className='gridhead'>Latest</h5>
         <div className="forYourow">
           {latestPosts.map((article) => (
-            <div className='gridbd'>
-            <div key={article.id} className="col-md-12 mb-4 ">
-              
-              <div className="CardLatestGrid">
-               
-                
-              <a href={`/articles/${article.id}`} className="featuredtext">
-                <div className="card-body">
-                  <h5 className="card-title">
-                    <h2 className='foryoutitle' href={`/articles/${article.id}`}>{article.title}</h2>
-                  </h5>
-                  <p className="forYoutext">{truncateText(article.short_description, 14)}</p>
-                  
-                  <p className="foryou-author">{article.authorName}</p> 
+            
+            <div key={article.id} className='gridbd'>
+              <div className="col-md-12 mb-4">
+                <div className="CardLatestGrid">
+                  <a href={`/articles/${article.id}`} className="featuredtext">
+                    <div className="card-body">
+                      <h5 className="card-title">
+                        <h2 className='foryoutitle'>{truncateText(article.title || '', 6)}</h2>
+                      </h5>
+                       <div>Author: {article.contributors[0].name}</div>
+                      
+                       <p className="forYoutext">{truncateText(article.content || 'No short description available.', 27)}</p>
+                    </div>
+                  </a>
                 </div>
-                </a>
               </div>
-            </div>
             </div>
           ))}
         </div>
@@ -66,6 +62,7 @@ const LatestGrid = () => {
     </section>
   );
 };
+
 function truncateText(text, maxWords) {
   const words = text.split(' ');
   if (words.length > maxWords) {

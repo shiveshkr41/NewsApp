@@ -6,8 +6,7 @@
   }
   @media only screen and (max-width: 768px) {
     .app{
-    margin-right: 0px;
-    margin-left: 0px;
+    margin: 0 5%; 
     }
   }
   .App-logo {
@@ -50,7 +49,7 @@
       display: block;
     }
     display: flex;
-    padding-bottom: 27px;
+    padding-bottom: 36px;
   }
   .SecAds{
   display: block;

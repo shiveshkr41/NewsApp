@@ -1,7 +1,6 @@
 .CardLatestGrid{
     width: 272px;
     height: 130px;
-    margin-bottom: 65px;
 
 }
 
@@ -32,7 +31,7 @@
     border-bottom: 1px solid #c8c8c8;
     margin-top: 15px;
   }
-  .gridbd:nth-child(3){
+  .gridbd:nth-child(4){
     border-bottom: none;
   }
 
